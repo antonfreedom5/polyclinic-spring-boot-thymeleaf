@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Редактирование заказа</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+<div class="row justify-content-center mt-5">
+    <div class="col-3">
+        <div class="list-group">
+            <a th:href="@{/order/}" class="list-group-item list-group-item-action active" aria-current="true">Заявки</a>
+            <a th:href="@{/patient/}" class="list-group-item list-group-item-action">Пациенты</a>
+            <a th:href="@{/doctor/}" class="list-group-item list-group-item-action">Доктора</a>
+            <a th:href="@{/specialization/}" class="list-group-item list-group-item-action">Специализации</a>
+            <a th:href="@{/status/}" class="list-group-item list-group-item-action">Статусы</a>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header">
+                Редактирование заявки
+            </div>
+            <div class="card-body">
+                <form action="#" th:action="@{/order/update/{id}(id=${order.id})}" th:object="${order}" method="post">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="patient" class="col-form-label">Клиент</label>
+                            <select th:field="*{patient.id}" id="patient" class="form-control">
+                                <option th:each="i : ${patients}" th:value="${i.id}"
+                                        th:text="${i.firstName + ', ' + i.lastName + ', ' + i.birthday}"></option>
+                            </select>
+                            <label for="doctor" class="col-form-label">Доктор</label>
+                            <select th:field="*{doctor.id}" id="doctor" class="form-control">
+                                <option th:each="i : ${doctors}" th:value="${i.id}"
+                                        th:text="${i.firstName + ', ' + i.lastName + ', ' + i.specialization.name}"></option>
+                            </select>
+                            <label for="status" class="col-form-label">Статус</label>
+                            <select th:field="*{status.id}" id="status" class="form-control">
+                                <option th:each="i : ${statuses}" th:value="${i.id}"
+                                        th:text="${i.name}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row ml-1">
+                        <input type="submit" class="btn btn-primary" value="Сохранить"
+                               style="margin-right: 10px">
+                        <a href="/order" class="btn btn-secondary">Отмена</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
